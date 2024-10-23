@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 
-const JWL_SECRET = process.env.JWL_SECRET_KEY;
+const JWL_SECRET = process.env.NEXT_PUBLIC_JWL_SECRET_KEY;
 
 const verifyToken = (req , res , next) => {
     try{
-        //const token = req.cookies.token;
-        const token = req.headers.authorization?.split(' ')[1];
+        const token = req.cookies.token;
+        // const token = req.headers.authorization?.split(' ')[1];
        if(!token) {
         return res.status(401).send({message:"No token provided"})
        }

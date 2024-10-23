@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
         //todo : generate token here
         const token = await generateToken(user._id);
         res.cookie("token", token, {
-            httpOnly: true, //enable
+            httpOnly: false, //enable
             secure: true,
             sameSite: true
         })

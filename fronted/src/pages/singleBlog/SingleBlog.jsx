@@ -9,7 +9,7 @@ const SingleBlog = () => {
   const { id } = useParams();
   //console.log(id)
   const { data: blog, error, isLoading } = useFetchBlogByIdQuery(id);
-  //console.log(blog)
+  console.log(blog)
   return (
     <div className='text-primary container mx-auto mt-8'>
       <div>

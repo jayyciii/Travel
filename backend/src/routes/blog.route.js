@@ -72,10 +72,9 @@ router.get("/:id", async (req, res) => {
         }
 
 
-        const comment = await Comment.find({ postId: postId }).populate('user', "username email")
+        const comments = await Comment.find({ postId: postId }).populate('user', "username email")
         res.status(200).send({
-            message: "Post retrieved successfully",
-            post: post
+            post, comments
 
         })
 
@@ -88,7 +87,7 @@ router.get("/:id", async (req, res) => {
 
 
 //update a blog post
-router.patch("/update-post/:id", async (req, res) => {
+router.patch("/update-post/:id",verifyToken, isAdmin, async (req, res) => {
     try {
         const postId = req.params.id;
         const updatePost = await Blog.findByIdAndUpdate(postId, {
@@ -112,7 +111,7 @@ router.patch("/update-post/:id", async (req, res) => {
 })
 
 //delete a blog post
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",verifyToken, isAdmin, async (req, res) => {
     try {
         const postId = req.params.id;
         const post = await Blog.findByIdAndDelete(postId);
@@ -122,7 +121,7 @@ router.delete("/:id", async (req, res) => {
         }
 
         //delete related comments
-        await Comment.deleteMany({ postId: pos })
+        await Comment.deleteMany({ postId: post })
 
 
 
